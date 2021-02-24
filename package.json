@@ -10,9 +10,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "moment": "^2.29.1",
     "node-html-parser": "^2.2.1",
     "node-xlsx": "^0.16.1",
-    "request": "^2.88.2"
-  }
+    "qs": "^6.9.6"
+  },
+  "devDependencies": {}
 }
