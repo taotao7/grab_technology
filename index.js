@@ -6,8 +6,6 @@ const fs = require("fs");
 const monment = require("moment");
 monment.locale("zh-cn");
 
-let isStop = false;
-
 //所有人的网址
 let allHumanData = [
   {
@@ -87,7 +85,6 @@ const getAllTechnologyLink = () => {
 
           //增加索引
           currentIndex += 1;
-          isStop = true;
         })
         .catch((error) => {
           console.log("错误为:", error);
@@ -122,6 +119,7 @@ const finalGet = () => {
 
   const outPutFinal = () => {
     if (finalIndex < allLength) {
+      console.log(finalIndex);
       let finalConfig = {
         url: formatData[0].data[finalIndex][1],
         method: "get",
@@ -140,12 +138,15 @@ const finalGet = () => {
       };
       axios(finalConfig)
         .then((response) => {
+          console.log("------------------------");
+          console.log("当前时间为:", monment().format("YYYY MMMM Do"));
           console.log("状态码: " + response.status);
           let result = HTMLParser.parse(response.data);
           console.log("当前查询人员为: " + formatData[0].data[finalIndex][0]);
           console.log(
             "当前在建有: " + result.querySelectorAll(".datas_num")[2].text
           );
+          console.log("------------------------");
           allDetails[0].data.push([
             finalIndex,
             formatData[0].data[finalIndex][0],
@@ -163,12 +164,16 @@ const finalGet = () => {
       detailBuffer = xlsx.build(allDetails);
 
       //最终数据
-      fs.writeFile("final.xlsx", detailBuffer, (err) => {
-        if (err) {
-          console.log("遇到错误:");
-          return console.error(err);
+      fs.writeFile(
+        "final-" + monment().format("YYYY-MMMM-Do") + ".xlsx",
+        detailBuffer,
+        (err) => {
+          if (err) {
+            console.log("遇到错误:");
+            return console.error(err);
+          }
         }
-      });
+      );
       clearInterval(interverl2);
     }
   };
