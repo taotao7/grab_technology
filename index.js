@@ -22,7 +22,7 @@ let allDetails = [
   },
 ];
 
-function getAllTechnologyLink() {
+const getAllTechnologyLink = () => {
   //url
   const url = "http://202.61.88.188/xmgk/Person/rList.aspx";
   //读取excel
@@ -31,7 +31,7 @@ function getAllTechnologyLink() {
   let index = workSheetsFromBuffer[0].data.length;
   let currentIndex = 0;
 
-  function outPutHuman() {
+  const outPutHuman = () => {
     if (currentIndex < index) {
       //config
       let config = {
@@ -101,24 +101,23 @@ function getAllTechnologyLink() {
       console.log("完成抓取");
       clearInterval(intervel);
     }
-  }
+  };
 
   //开始运行
   let intervel = setInterval(outPutHuman, 3000);
-}
+};
 
-function finalGet() {
+const finalGet = () => {
   //toExcel
   //读取的信息
   let formatData = xlsx.parse("./data.xlsx");
   //最终数据buffer
   let detailBuffer;
   //定义索引
-  let allLength = formatData[0].data.length;
   let finalIndex = 1;
 
-  function outPutFinal() {
-    if (finalIndex < allLength) {
+  const outPutFinal = () => {
+    if (finalIndex < formatData[0].data.length) {
       console.log(finalIndex);
       let finalConfig = {
         url: formatData[0].data[finalIndex][1],
@@ -176,10 +175,10 @@ function finalGet() {
       );
       clearInterval(interverl2);
     }
-  }
+  };
 
-  let interverl2 = setInterval(outPutFinal, 3000);
-}
+  let interverl2 = setInterval(outPutFinal, 5000);
+};
 
 // getAllTechnologyLink();
 finalGet();
