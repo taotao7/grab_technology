@@ -6,8 +6,7 @@ const fs = require("fs");
 const monment = require("moment");
 monment.locale("zh-cn");
 
-//url
-const url = "http://202.61.88.188/xmgk/Person/rList.aspx";
+let isStop = false;
 
 //所有人的网址
 let allHumanData = [
@@ -17,6 +16,7 @@ let allHumanData = [
   },
 ];
 
+//最终数据
 let allDetails = [
   {
     name: "sheet",
@@ -25,6 +25,8 @@ let allDetails = [
 ];
 
 const getAllTechnologyLink = () => {
+  //url
+  const url = "http://202.61.88.188/xmgk/Person/rList.aspx";
   //读取excel
   const workSheetsFromBuffer = xlsx.parse("./assets/names.xlsx");
   //索引
@@ -85,6 +87,7 @@ const getAllTechnologyLink = () => {
 
           //增加索引
           currentIndex += 1;
+          isStop = true;
         })
         .catch((error) => {
           console.log("错误为:", error);
@@ -173,4 +176,5 @@ const finalGet = () => {
   let interverl2 = setInterval(outPutFinal, 3000);
 };
 
-getAllTechnologyLink();
+// getAllTechnologyLink();
+finalGet();

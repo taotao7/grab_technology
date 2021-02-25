@@ -16,5 +16,7 @@
     "node-xlsx": "^0.16.1",
     "qs": "^6.9.6"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "pkg": "^4.4.9"
+  }
 }
